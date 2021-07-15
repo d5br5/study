@@ -13,12 +13,14 @@
 //     }
 // }
 
-import {getMovies} from "./ytsDB";
+import {getMovie, getMovies, getSuggestions} from "./ytsDB";
 
 const resolvers = {
     Query: {
         movies: () => getMovies(),
         // moives : (_, {rating, limit}) => getMovies(limit, rating)
+        movie : (_, {id})=> getMovie(id),
+        suggestions:(_, {id}) => getSuggestions(id)
     }
 }
 

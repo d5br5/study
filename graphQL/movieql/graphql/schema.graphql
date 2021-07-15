@@ -1,5 +1,6 @@
 type Query{
     movies:[Movie]!
+    movie(id:Int):Movie!
 }
 
 type Mutation{
@@ -10,8 +11,10 @@ type Mutation{
 type Movie{
     id:Int!
     title:String!
+    medium_cover_image:String!
+    language:String!
     rating:Float!
-    year: Int!
+    description_intro:String!
 }
 
 type Person{
