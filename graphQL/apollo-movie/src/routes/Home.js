@@ -8,6 +8,7 @@ const GET_MOVIES = gql`{
         id
         title
         medium_cover_image
+        
     }
 }`;
 
@@ -51,18 +52,18 @@ const Movies = styled.div`
   top: -50px;
 `;
 
-export default ()=>{
-    const {loading, data}  = useQuery(GET_MOVIES);
-    console.log(data);
+export default () => {
+    const {loading, data} = useQuery(GET_MOVIES);
+
     return <Container>
         <Header>
             <Title>Apollo 2021</Title>
             <Subtitle>I Love GraphQL</Subtitle>
         </Header>
         {
-            loading ? <Loading>Loading,,,</Loading> : <Movies>
-                {data.movies.map(m=><Movie key={m.id} id={m.id} bg={m.medium_cover_image}/>)}
-            </Movies>
+            loading ? <Loading>Loading,,,</Loading> : (<Movies>
+                {data?.movies.map(m => <Movie key={m.id} id={m.id} bg={m.medium_cover_image}/>)}
+            </Movies>)
         }
     </Container>
 

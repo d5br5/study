@@ -19,6 +19,10 @@ const GET_MOVIE = gql`
             rating
             description_intro
         }
+        suggestions(id:$id){
+            id
+            medium_cover_image
+        }
     }`;
 
 const Container = styled.div`
@@ -33,6 +37,7 @@ const Container = styled.div`
 
 const Column = styled.div`
   margin-left: 10px;
+  width: 50%;
 `;
 
 const Title = styled.h1`
@@ -47,30 +52,29 @@ const Subtitle = styled.h4`
 
 const Description = styled.p`
   font-size: 28px;
+
 `;
 
 const Poster = styled.div`
-  width: 25%;
+  background-image: url(${props => props.bg});
+  width: 21%;
   height: 60%;
+  background-size: cover;
+  background-position: center center;
   background-color: transparent;
+  border-radius: 10px;
 `;
 
 export default () => {
     const {id} = useParams();
     const {loading, data} = useQuery(GET_MOVIE, {variables: {id: +id}});
     console.log(loading, data);
-    return loading ? <Loading>Loading,,,</Loading> :
-        <Container>
-            <Column>
-                <Title>Name</Title>
-                <Subtitle>English · 4.5</Subtitle>
-                <Description>lorem ipsum lalalla </Description>
-            </Column>
-            <Poster></Poster>
-        </Container>
-    //     <div>
-    //     <img src={data.movie.medium_cover_image} alt=""/>
-    //     <h1>{data.movie.title}</h1>
-    //     <p>{data.movie.description_intro}</p>
-    // </div>
+    return <Container>
+        <Column>
+            <Title>{loading ? "Loading,,," : data.movie.title}</Title>
+            <Subtitle>{data?.movie.language} · {data?.movie.rating}</Subtitle>
+            <Description>{data?.movie.description_intro}</Description>
+        </Column>
+        <Poster bg={data?.movie.medium_cover_image}></Poster>
+    </Container>
 };

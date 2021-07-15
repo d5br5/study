@@ -1,6 +1,7 @@
 type Query{
     movies:[Movie]!
     movie(id:Int):Movie!
+    suggestions(id:Int):[Movie]!
 }
 
 type Mutation{
